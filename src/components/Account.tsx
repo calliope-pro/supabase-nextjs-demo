@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Session } from '@supabase/supabase-js'
 import { supabase } from '../utils/supabaseClient'
+import { Avatar } from './Avatar'
 
 export const Account: React.FC<{session: Session}> = ({ session }) => {
   const [loading, setLoading] = useState(true)
@@ -105,6 +106,14 @@ export const Account: React.FC<{session: Session}> = ({ session }) => {
           onChange={(e) => setWebsite(e.target.value)}
         />
       </div>
+      <Avatar
+        url={avatar_url as string}
+        size={150}
+        onUpload={(url) => {
+          setAvatarUrl(url)
+          updateProfile({username, website, avatar_url: url} as {username: string; website: string; avatar_url: string;})
+        }}
+        />
 
       <div>
         <button
